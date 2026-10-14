@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Printer, FileText } from 'lucide-react';
+import { X, Printer, FileText, Bot, Activity } from 'lucide-react';
 
 export default function ClinicalReportModal({
   isOpen,
@@ -12,6 +12,7 @@ export default function ClinicalReportModal({
 
   const cad = predictionResult.cad || {};
   const vessels = predictionResult.vessels || {};
+  const hemo = predictionResult.hemodynamics || {};
   const shap = predictionResult.shap_breakdown || {};
 
   const handlePrint = () => {
@@ -32,7 +33,7 @@ export default function ClinicalReportModal({
                 Cardiology Consultation & Decision Support Summary
               </h2>
               <p className="text-xs text-slate-500">
-                Cardio3D Multimodal Risk Estimation & Coronary Vasculature Breakdown
+                Cardio3D Multimodal Risk Estimation, 1D Hemodynamics & Coronary Vasculature Breakdown
               </p>
             </div>
           </div>
@@ -94,7 +95,7 @@ export default function ClinicalReportModal({
         {/* Inferences Summary */}
         <div className="flex flex-col gap-2">
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
-            Cardiovascular Inferences & Vessel Involvement
+            Cardiovascular Inferences & 1D Hemodynamics
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
             {/* CAD */}
@@ -104,7 +105,7 @@ export default function ClinicalReportModal({
                 {cad.percentage || 0}%
               </div>
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full w-max border ${
-                (cad.probability || 0) >= 0.6 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                (cad.probability || 0) >= 0.5 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
               }`}>
                 {cad.risk_tier || 'Low'} Risk
               </span>
@@ -113,18 +114,25 @@ export default function ClinicalReportModal({
             {/* Vessels */}
             {['lad', 'lcx', 'rca'].map((key) => {
               const v = vessels[key] || {};
+              const h = hemo[key] || {};
               const isStented = !!stentedVessels[key];
+              const ffr = isStented ? 0.98 : (h.ffr ?? 0.92);
+              const isIschemic = !isStented && (ffr <= 0.80);
+
               return (
                 <div key={key} className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500 font-semibold uppercase">{key}</span>
                     {isStented && <span className="text-[9px] bg-blue-50 text-blue-700 px-1.5 py-0.2 rounded border border-blue-200">Stented</span>}
                   </div>
-                  <div className="text-2xl font-bold text-slate-900 my-1">
-                    {isStented ? '0%' : `${v.percentage || 0}%`}
+                  <div className="text-xl font-bold text-slate-900 my-1">
+                    {isStented ? '0% Narrow' : `${v.percentage || 0}%`}
+                  </div>
+                  <div className="text-[10px] text-slate-500 mb-1 font-mono">
+                    FFR: <strong className={isIschemic ? 'text-rose-600' : 'text-emerald-600'}>{ffr}</strong> · ΔP: {isStented ? '1.5' : (h.pressure_drop_mmhg ?? '4.2')} mmHg
                   </div>
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full w-max border ${
-                    isStented ? 'bg-blue-50 text-blue-700 border-blue-200' : (v.probability || 0) >= 0.6 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                    isStented ? 'bg-blue-50 text-blue-700 border-blue-200' : (v.probability || 0) >= 0.4 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                   }`}>
                     {isStented ? 'Patent (Stented)' : `${v.risk_tier || 'Low'} Risk`}
                   </span>

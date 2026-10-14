@@ -1,14 +1,22 @@
 import React from 'react';
-import { Zap } from 'lucide-react';
+import { Zap, Activity, Gauge } from 'lucide-react';
 
 export default function VesselCrossSection({
   vesselKey = 'lad',
   vesselData = {},
+  hemodynamicsData = {},
   isStented = false,
   onToggleStent
 }) {
   const prob = vesselData.probability ?? 0.2;
   const stenosisPercent = isStented ? 0 : Math.round(prob * 100);
+
+  // If backend 1D Navier-Stokes hemodynamics is available, use it; otherwise fallback
+  const hemo = hemodynamicsData || {};
+  const ffrValue = isStented ? 0.98 : (hemo.ffr ?? (prob >= 0.4 ? Number((0.68 + (1 - prob) * 0.1).toFixed(2)) : 0.92));
+  const dpValue = isStented ? 1.5 : (hemo.pressure_drop_mmhg ?? Number((prob * 24.0).toFixed(1)));
+  const pdValue = isStented ? 88.0 : (hemo.distal_pressure_pd_mmhg ?? 72.0);
+  const isIschemic = !isStented && (ffrValue <= 0.80);
 
   const vesselDetails = {
     lad: {
@@ -17,7 +25,7 @@ export default function VesselCrossSection({
       territory: 'Anterior LV Wall, Septum, Apex',
       impact: 'Supplies approximately 45-50% of left ventricular myocardium.',
       lesionType: 'Eccentric calcified fibroatheroma',
-      ffr: prob >= 0.5 ? (0.68 + (1 - prob) * 0.1).toFixed(2) : '0.92'
+      nominalDiameter: '3.5 mm'
     },
     lcx: {
       name: 'Left Circumflex (LCX)',
@@ -25,7 +33,7 @@ export default function VesselCrossSection({
       territory: 'Lateral & Posterior LV Wall',
       impact: 'Supplies obtuse marginal branches and posterior left ventricle.',
       lesionType: 'Concentric intimal thickening',
-      ffr: prob >= 0.5 ? (0.74 + (1 - prob) * 0.08).toFixed(2) : '0.94'
+      nominalDiameter: '3.0 mm'
     },
     rca: {
       name: 'Right Coronary Artery (RCA)',
@@ -33,15 +41,15 @@ export default function VesselCrossSection({
       territory: 'Right Ventricle, Inferior LV Wall, SA/AV Nodes',
       impact: 'Supplies acute marginal branches and posterior descending artery.',
       lesionType: 'Lipid-rich atheroma',
-      ffr: prob >= 0.5 ? (0.71 + (1 - prob) * 0.09).toFixed(2) : '0.91'
+      nominalDiameter: '3.2 mm'
     }
   };
 
   const details = vesselDetails[vesselKey] || vesselDetails['lad'];
-  const isSignificant = prob >= 0.5 && !isStented;
+  const isSignificant = (prob >= 0.35 || isIschemic) && !isStented;
 
   const outerR = 45;
-  const lumenR = isStented ? 38 : Math.max(12, Math.round(outerR * (1 - (stenosisPercent / 120))));
+  const lumenR = isStented ? 38 : Math.max(12, Math.round(outerR * (1 - (stenosisPercent / 125))));
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-col gap-3">
@@ -50,10 +58,10 @@ export default function VesselCrossSection({
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              Coronary Cross-Section & Hemodynamics
+              1D Navier-Stokes Hemodynamics & Cross-Section
             </span>
-            <span className="text-[11px] bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded border border-slate-200">
-              {vesselKey.toUpperCase()}
+            <span className="text-[11px] bg-blue-50 text-blue-800 font-bold px-2 py-0.5 rounded border border-blue-200">
+              {vesselKey.toUpperCase()} · {details.nominalDiameter}
             </span>
           </div>
           <div className="text-xs font-semibold text-slate-800 mt-0.5">
@@ -92,7 +100,7 @@ export default function VesselCrossSection({
                 opacity="0.85"
               />
             )}
-            {!isStented && stenosisPercent > 50 && (
+            {!isStented && stenosisPercent > 45 && (
               <path
                 d={`M 15 65 A 44 44 0 0 1 55 11 Q 50 50 15 65 Z`}
                 fill="#b45309"
@@ -135,30 +143,49 @@ export default function VesselCrossSection({
           </svg>
 
           <div className="text-[11px] text-slate-500 mt-1 font-mono text-center">
-            {isStented ? 'Restored Lumen' : `Narrowing: ${stenosisPercent}%`}
+            {isStented ? 'Lumen Restored (100%)' : `Lumen Narrowing: ${stenosisPercent}%`}
           </div>
         </div>
 
         {/* Hemodynamic Metrics */}
         <div className="sm:col-span-7 flex flex-col gap-2 text-xs">
+          {/* FFR Metric */}
           <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-200/80">
-            <span className="text-slate-600">Fractional Flow Reserve (FFR):</span>
-            <span className={`font-mono font-bold ${
-              isStented ? 'text-blue-700' : Number(details.ffr) < 0.80 ? 'text-rose-700' : 'text-emerald-700'
+            <div className="flex items-center gap-1.5">
+              <Activity className="w-3.5 h-3.5 text-blue-600" />
+              <span className="text-slate-600 font-medium">Fractional Flow Reserve (FFR):</span>
+            </div>
+            <span className={`font-mono font-bold px-2 py-0.5 rounded text-[11px] ${
+              isStented ? 'bg-blue-100 text-blue-800' : isIschemic ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800'
             }`}>
-              {isStented ? '0.96 (Normal)' : `${details.ffr} ${Number(details.ffr) < 0.80 ? '(Ischemia)' : '(Preserved)'}`}
+              {isStented ? '0.98 (Restored)' : `${ffrValue} ${isIschemic ? '(Ischemic ≤ 0.80)' : '(Preserved)'}`}
             </span>
           </div>
 
+          {/* Translesional Pressure Drop & Distal Pd */}
+          <div className="grid grid-cols-2 gap-2">
+            <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span className="text-[10px] text-slate-500 block uppercase font-semibold">Pressure Drop (ΔP)</span>
+              <span className="font-mono font-bold text-slate-800 text-xs">{dpValue} mmHg</span>
+            </div>
+            <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span className="text-[10px] text-slate-500 block uppercase font-semibold">Distal Pressure (Pd)</span>
+              <span className="font-mono font-bold text-slate-800 text-xs">{pdValue} mmHg</span>
+            </div>
+          </div>
+
+          {/* Clinical Action */}
           <div className="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-200/80">
-            <span className="text-slate-600">Clinical Recommendation:</span>
-            <span className="font-semibold text-slate-800">
-              {isStented ? 'Post-PCI Medical Therapy' : isSignificant ? 'Coronary Angiography (Cath)' : 'Conservative GDMT'}
+            <span className="text-slate-600 font-medium">Revascularization Need:</span>
+            <span className={`font-bold text-[11px] ${
+              isStented ? 'text-blue-700' : isIschemic ? 'text-rose-700' : 'text-slate-700'
+            }`}>
+              {isStented ? 'PCI Complete' : isIschemic ? 'Indicated (FFR ≤ 0.80)' : 'Medical Therapy'}
             </span>
           </div>
 
           <div className="text-[11px] text-slate-500 p-2 rounded-lg bg-slate-50 border border-slate-200/60 leading-relaxed">
-            <strong className="text-slate-700">Myocardial Territory:</strong> {details.territory}. {details.impact}
+            <strong className="text-slate-700">Territory:</strong> {details.territory}. {details.impact}
           </div>
         </div>
       </div>

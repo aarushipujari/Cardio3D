@@ -1,8 +1,8 @@
 [
   {
     "id": "patient_healthy",
-    "name": "Low Risk / Asymptomatic (Case A)",
-    "description": "Normal coronaries, preserved ejection fraction, no regional wall motion abnormalities.",
+    "name": "Low Risk / Normal Screen (Case A)",
+    "description": "Normal coronaries, preserved ejection fraction, no wall motion abnormalities.",
     "ground_truth": {
       "CAD": 0,
       "LAD": 0,
@@ -141,7 +141,7 @@
   },
   {
     "id": "patient_isolated_lad",
-    "name": "Isolated Anterior Stenosis - LAD (Case C)",
+    "name": "Isolated Anterior LAD Stenosis (Case C)",
     "description": "Isolated significant stenosis in the Left Anterior Descending artery.",
     "ground_truth": {
       "CAD": 1,
@@ -211,7 +211,7 @@
   },
   {
     "id": "patient_isolated_rca",
-    "name": "Isolated Inferior Stenosis - RCA (Case D)",
+    "name": "Isolated Inferior RCA Stenosis (Case D)",
     "description": "Predominant right coronary artery involvement.",
     "ground_truth": {
       "CAD": 1,

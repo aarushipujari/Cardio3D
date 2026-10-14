@@ -2,249 +2,249 @@
   "CAD": [
     {
       "feature": "Typical Chest Pain",
-      "importance": 0.08718109551334534
+      "importance": 0.10529197895463994
     },
     {
       "feature": "Age",
-      "importance": 0.04280792595716351
+      "importance": 0.048113885132842975
     },
     {
       "feature": "Atypical",
-      "importance": 0.039839460498627674
+      "importance": 0.04227018993451393
     },
     {
       "feature": "Region RWMA",
-      "importance": 0.030233670015440122
+      "importance": 0.036511557042210464
     },
     {
       "feature": "EF-TTE",
-      "importance": 0.029979522724185186
-    },
-    {
-      "feature": "HTN",
-      "importance": 0.01794055232673111
+      "importance": 0.03639172054963415
     },
     {
       "feature": "FBS",
-      "importance": 0.01541422389384002
+      "importance": 0.02278413266595134
     },
     {
       "feature": "TG",
-      "importance": 0.013068107751732396
+      "importance": 0.02173793496371228
+    },
+    {
+      "feature": "HTN",
+      "importance": 0.0204623297644663
     },
     {
       "feature": "BP",
-      "importance": 0.012927330126630188
+      "importance": 0.017898590077205206
     },
     {
       "feature": "Tinversion",
-      "importance": 0.011921015526991348
-    },
-    {
-      "feature": "K",
-      "importance": 0.00937076582465664
+      "importance": 0.016914583831292903
     },
     {
       "feature": "ESR",
-      "importance": 0.008921850110061144
-    },
-    {
-      "feature": "PR",
-      "importance": 0.008181410483053545
-    },
-    {
-      "feature": "Nonanginal",
-      "importance": 0.007734528301730586
+      "importance": 0.014842276040066016
     },
     {
       "feature": "DM",
-      "importance": 0.00741262373212352
+      "importance": 0.01331499190945379
+    },
+    {
+      "feature": "K",
+      "importance": 0.0108033642985712
+    },
+    {
+      "feature": "BMI",
+      "importance": 0.007729842524928978
+    },
+    {
+      "feature": "PR",
+      "importance": 0.007227055072730898
     }
   ],
   "LAD": [
     {
       "feature": "Typical Chest Pain",
-      "importance": 0.07655334380106528
+      "importance": 0.06947216812985944
     },
     {
       "feature": "Region RWMA",
-      "importance": 0.04074406131584115
-    },
-    {
-      "feature": "Age",
-      "importance": 0.03907014736713372
+      "importance": 0.05417970335260756
     },
     {
       "feature": "EF-TTE",
-      "importance": 0.03848767779729406
+      "importance": 0.04216087381780591
+    },
+    {
+      "feature": "Age",
+      "importance": 0.03566690065178475
     },
     {
       "feature": "Atypical",
-      "importance": 0.029466788959517674
+      "importance": 0.029665156607978378
     },
     {
       "feature": "ESR",
-      "importance": 0.01549588837058272
+      "importance": 0.014206836254100961
     },
     {
       "feature": "Lymph",
-      "importance": 0.013738156303328173
+      "importance": 0.013581209661964922
     },
     {
       "feature": "Neut",
-      "importance": 0.01127559285641271
-    },
-    {
-      "feature": "PR",
-      "importance": 0.010719551007229369
+      "importance": 0.013321348625472355
     },
     {
       "feature": "TG",
-      "importance": 0.010606206652028483
-    },
-    {
-      "feature": "WBC",
-      "importance": 0.008415280582192111
-    },
-    {
-      "feature": "FBS",
-      "importance": 0.008334204638264904
+      "importance": 0.011983729528863975
     },
     {
       "feature": "Tinversion",
-      "importance": 0.007949084088757505
+      "importance": 0.01042634827661468
     },
     {
-      "feature": "HTN",
-      "importance": 0.007904894973198231
+      "feature": "BP",
+      "importance": 0.009738180847653734
     },
     {
-      "feature": "CR",
-      "importance": 0.007873798706070852
+      "feature": "FBS",
+      "importance": 0.009446369525884565
+    },
+    {
+      "feature": "BMI",
+      "importance": 0.008147624799825937
+    },
+    {
+      "feature": "PR",
+      "importance": 0.007751848903818399
+    },
+    {
+      "feature": "WBC",
+      "importance": 0.00735324610932504
     }
   ],
   "LCX": [
     {
       "feature": "Age",
-      "importance": 0.5009123599973988
+      "importance": 0.050501060667845495
     },
     {
       "feature": "Typical Chest Pain",
-      "importance": 0.4447600719636434
-    },
-    {
-      "feature": "TG",
-      "importance": 0.2564235923442359
-    },
-    {
-      "feature": "CR",
-      "importance": 0.24054936050147893
-    },
-    {
-      "feature": "HDL",
-      "importance": 0.18999211764724203
+      "importance": 0.03810859212294617
     },
     {
       "feature": "PLT",
-      "importance": 0.18922299453135133
+      "importance": 0.021799881962899025
     },
     {
-      "feature": "FBS",
-      "importance": 0.1710543804608451
+      "feature": "TG",
+      "importance": 0.019475297801389093
     },
     {
-      "feature": "Na",
-      "importance": 0.17000302761336178
-    },
-    {
-      "feature": "Length",
-      "importance": 0.16410869576150305
-    },
-    {
-      "feature": "BMI",
-      "importance": 0.15757442440337785
-    },
-    {
-      "feature": "Weight",
-      "importance": 0.13439706581735508
-    },
-    {
-      "feature": "LDL",
-      "importance": 0.10952284312354324
+      "feature": "CR",
+      "importance": 0.01828594777320693
     },
     {
       "feature": "BP",
-      "importance": 0.09538929379434635
+      "importance": 0.016146720801490884
+    },
+    {
+      "feature": "FBS",
+      "importance": 0.015518551594352996
+    },
+    {
+      "feature": "EF-TTE",
+      "importance": 0.01181214231454681
+    },
+    {
+      "feature": "LDL",
+      "importance": 0.011347456839132047
     },
     {
       "feature": "ESR",
-      "importance": 0.08967388150789612
+      "importance": 0.010940953438091436
     },
     {
-      "feature": "HB",
-      "importance": 0.08178694768787204
+      "feature": "BUN",
+      "importance": 0.010155651997537736
+    },
+    {
+      "feature": "Length",
+      "importance": 0.008586196636806664
+    },
+    {
+      "feature": "Atypical",
+      "importance": 0.008583201997501155
+    },
+    {
+      "feature": "Region RWMA",
+      "importance": 0.008561227481051585
+    },
+    {
+      "feature": "Na",
+      "importance": 0.006800833416598187
     }
   ],
   "RCA": [
     {
-      "feature": "DM",
-      "importance": 0.3635722660946992
-    },
-    {
       "feature": "Typical Chest Pain",
-      "importance": 0.3328479244723658
+      "importance": 0.038685530159340946
     },
     {
       "feature": "Age",
-      "importance": 0.3053866657793899
-    },
-    {
-      "feature": "ESR",
-      "importance": 0.3049801833792777
+      "importance": 0.03536728280734118
     },
     {
       "feature": "Neut",
-      "importance": 0.2586267350970489
+      "importance": 0.02986981016789322
     },
     {
-      "feature": "TG",
-      "importance": 0.16852686496606573
+      "feature": "ESR",
+      "importance": 0.026167976952175535
     },
     {
-      "feature": "Lymph",
-      "importance": 0.14991009086910886
-    },
-    {
-      "feature": "Length",
-      "importance": 0.12763897898645013
-    },
-    {
-      "feature": "WBC",
-      "importance": 0.12465798611874264
-    },
-    {
-      "feature": "HB",
-      "importance": 0.1182315495644583
-    },
-    {
-      "feature": "BMI",
-      "importance": 0.09846212949252926
-    },
-    {
-      "feature": "PLT",
-      "importance": 0.09618913922459889
-    },
-    {
-      "feature": "Weight",
-      "importance": 0.09512299704965171
-    },
-    {
-      "feature": "Dyspnea",
-      "importance": 0.0868315821978372
+      "feature": "DM",
+      "importance": 0.025016680991128283
     },
     {
       "feature": "Atypical",
-      "importance": 0.08007361744502452
+      "importance": 0.020875987500022036
+    },
+    {
+      "feature": "TG",
+      "importance": 0.019891721784027448
+    },
+    {
+      "feature": "Lymph",
+      "importance": 0.019293983713319838
+    },
+    {
+      "feature": "FBS",
+      "importance": 0.014188315174689442
+    },
+    {
+      "feature": "Length",
+      "importance": 0.011673375525548023
+    },
+    {
+      "feature": "WBC",
+      "importance": 0.011327418990956604
+    },
+    {
+      "feature": "PLT",
+      "importance": 0.007559629441917968
+    },
+    {
+      "feature": "CR",
+      "importance": 0.007349819882613678
+    },
+    {
+      "feature": "K",
+      "importance": 0.007222166615818171
+    },
+    {
+      "feature": "HTN",
+      "importance": 0.007038945648051403
     }
   ]
 }

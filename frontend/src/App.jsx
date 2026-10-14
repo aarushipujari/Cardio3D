@@ -5,12 +5,13 @@ import ShapExplainer from './components/ShapExplainer';
 import PatientInputForm from './components/PatientInputForm';
 import ModelEvaluationModal from './components/ModelEvaluationModal';
 import ClinicalReportModal from './components/ClinicalReportModal';
+import AiClinicalCoPilotModal from './components/AiClinicalCoPilotModal';
 import EcgMonitor from './components/EcgMonitor';
 import VesselCrossSection from './components/VesselCrossSection';
 import TreatmentSimulator from './components/TreatmentSimulator';
 import SafetyDisclaimer from './components/SafetyDisclaimer';
 import { 
-  Activity, Award, Heart, FileText, CheckCircle2 
+  Activity, Award, Heart, FileText, Bot, CheckCircle2, Sparkles 
 } from 'lucide-react';
 
 const FALLBACK_PATIENTS = [
@@ -63,8 +64,13 @@ const FALLBACK_PREDICTION = {
   },
   vessels: {
     lad: { prediction: 1, probability: 0.74, percentage: 74.0, risk_tier: 'High', color: '#EF4444' },
-    lcx: { prediction: 0, probability: 0.45, percentage: 45.0, risk_tier: 'Moderate', color: '#F59E0B' },
+    lcx: { prediction: 1, probability: 0.58, percentage: 58.0, risk_tier: 'Moderate', color: '#F59E0B' },
     rca: { prediction: 0, probability: 0.36, percentage: 36.0, risk_tier: 'Moderate', color: '#F59E0B' }
+  },
+  hemodynamics: {
+    lad: { ffr: 0.74, pressure_drop_mmhg: 19.2, distal_pressure_pd_mmhg: 62.8, is_ischemic: true },
+    lcx: { ffr: 0.81, pressure_drop_mmhg: 14.5, distal_pressure_pd_mmhg: 67.5, is_ischemic: false },
+    rca: { ffr: 0.92, pressure_drop_mmhg: 6.8, distal_pressure_pd_mmhg: 75.2, is_ischemic: false }
   },
   multi_vessel_status: 'Multi-Vessel CAD (2 Vessels)',
   shap_breakdown: {
@@ -82,6 +88,7 @@ export default function App() {
   const [patientFeatures, setPatientFeatures] = useState(FALLBACK_PATIENTS[1].features);
   const [baselineFeatures, setBaselineFeatures] = useState(FALLBACK_PATIENTS[1].features);
   const [predictionResult, setPredictionResult] = useState(FALLBACK_PREDICTION);
+  const [consultData, setConsultData] = useState(null);
   const [selectedVessel, setSelectedVessel] = useState('lad');
   const [selectedTarget, setSelectedTarget] = useState('cad');
   const [samplePatients, setSamplePatients] = useState(FALLBACK_PATIENTS);
@@ -93,6 +100,7 @@ export default function App() {
   // Modals
   const [showMetricsModal, setShowMetricsModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
+  const [showCoPilotModal, setShowCoPilotModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
 
@@ -143,6 +151,8 @@ export default function App() {
     try {
       setLoading(true);
       setApiError(null);
+
+      // Prediction & Hemodynamics
       const res = await fetch('/api/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -155,6 +165,22 @@ export default function App() {
 
       const data = await res.json();
       setPredictionResult(data);
+
+      // AI Clinical Co-Pilot Consultation
+      try {
+        const cRes = await fetch('/api/clinical-consult', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ features: featuresToUse })
+        });
+        if (cRes.ok) {
+          const cData = await cRes.json();
+          setConsultData(cData);
+        }
+      } catch (cErr) {
+        console.warn("Co-pilot fetch failed:", cErr);
+      }
+
     } catch (err) {
       console.error("Prediction error:", err);
       setApiError("Failed to calculate cardiac risk. Please verify input parameters.");
@@ -226,6 +252,7 @@ export default function App() {
 
   const vesselRisks = predictionResult ? predictionResult.vessels : {};
   const cadRisk = predictionResult ? predictionResult.cad : {};
+  const hemodynamics = predictionResult ? (predictionResult.hemodynamics || {}) : {};
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col antialiased">
@@ -242,16 +269,25 @@ export default function App() {
                   Cardio3D Coronary Decision Support
                 </h1>
                 <span className="text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.2 rounded-full">
-                  Clinical Workstation
+                  Clinical Workstation v2.0
                 </span>
               </div>
               <p className="text-[11px] text-slate-500">
-                Multimodal AI 2026 • 3D Anatomical Stenosis Mapping & SHAP Factor Attribution
+                1D Navier-Stokes Hemodynamics • Calibrated Multi-Target ML • AI Clinical Co-Pilot
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2.5">
+            {/* AI Clinical Co-Pilot Button */}
+            <button
+              onClick={() => setShowCoPilotModal(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-xs transition-colors"
+            >
+              <Bot className="w-3.5 h-3.5 text-purple-200" />
+              <span>AI Clinical Co-Pilot</span>
+            </button>
+
             <button
               onClick={() => setShowReportModal(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 shadow-xs transition-colors"
@@ -332,11 +368,12 @@ export default function App() {
               stentedVessels={stentedVessels}
             />
 
-            {/* Interactive Vessel Cross-Section & Hemodynamics */}
+            {/* Interactive Vessel Cross-Section & 1D Navier-Stokes Hemodynamics */}
             {selectedVessel && (
               <VesselCrossSection
                 vesselKey={selectedVessel}
                 vesselData={vesselRisks[selectedVessel] || {}}
+                hemodynamicsData={hemodynamics[selectedVessel] || {}}
                 isStented={!!stentedVessels[selectedVessel]}
                 onToggleStent={handleToggleStent}
               />
@@ -392,6 +429,15 @@ export default function App() {
         patientFeatures={patientFeatures}
         predictionResult={predictionResult || {}}
         stentedVessels={stentedVessels}
+      />
+
+      {/* AI Clinical Co-Pilot Consultation Modal */}
+      <AiClinicalCoPilotModal
+        isOpen={showCoPilotModal}
+        onClose={() => setShowCoPilotModal(false)}
+        consultData={consultData}
+        patientFeatures={patientFeatures}
+        predictionResult={predictionResult || {}}
       />
     </div>
   );

@@ -1,165 +1,189 @@
 {
   "cv_results": {
     "CAD": {
-      "XGBoost": {
-        "accuracy": 0.831584699453552,
-        "precision": 0.859286297691839,
-        "recall": 0.9165961945031711,
-        "f1": 0.886041986687148,
-        "roc_auc": 0.8979169257555031
+      "BalancedRandomForest": {
+        "accuracy": 0.8579234972677596,
+        "precision": 0.8490992616899098,
+        "recall": 0.9767441860465116,
+        "f1": 0.9079873348088396,
+        "roc_auc": 0.9266122234658486,
+        "calibrated_threshold": 0.36
       },
-      "LightGBM": {
-        "accuracy": 0.8381967213114754,
-        "precision": 0.8595868381989114,
-        "recall": 0.9258985200845664,
-        "f1": 0.891138938580799,
-        "roc_auc": 0.8933099807928808
+      "BalancedLightGBM": {
+        "accuracy": 0.8710928961748634,
+        "precision": 0.8929499072356215,
+        "recall": 0.9396405919661733,
+        "f1": 0.9135300927791778,
+        "roc_auc": 0.897000096726499,
+        "calibrated_threshold": 0.39
       },
-      "RandomForest": {
-        "accuracy": 0.8316393442622951,
-        "precision": 0.8345572712825258,
-        "recall": 0.9534883720930232,
-        "f1": 0.8895820873404325,
-        "roc_auc": 0.9256912490154624
+      "HistGradientBoosting": {
+        "accuracy": 0.8545355191256832,
+        "precision": 0.888684349980031,
+        "recall": 0.9167019027484142,
+        "f1": 0.9007276849380187,
+        "roc_auc": 0.8872355566610013,
+        "calibrated_threshold": 0.39
       },
       "GradientBoosting": {
-        "accuracy": 0.8381967213114754,
-        "precision": 0.8632640960267141,
-        "recall": 0.9212473572938688,
-        "f1": 0.8903816170941941,
-        "roc_auc": 0.9016934046345811
+        "accuracy": 0.8513114754098361,
+        "precision": 0.8640445632798575,
+        "recall": 0.9445031712473572,
+        "f1": 0.9014439189349848,
+        "roc_auc": 0.9033108098771573,
+        "calibrated_threshold": 0.44
       }
     },
     "LAD": {
-      "XGBoost": {
-        "accuracy": 0.7722950819672131,
-        "precision": 0.7986523125996812,
-        "recall": 0.8192063492063493,
-        "f1": 0.8079888466043729,
-        "roc_auc": 0.837801221001221
+      "BalancedRandomForest": {
+        "accuracy": 0.7727868852459017,
+        "precision": 0.7416515783957645,
+        "recall": 0.9661904761904762,
+        "f1": 0.8365343665343665,
+        "roc_auc": 0.8584336996336998,
+        "calibrated_threshold": 0.35
       },
-      "LightGBM": {
-        "accuracy": 0.7756830601092896,
-        "precision": 0.7912349362349362,
-        "recall": 0.8419047619047617,
-        "f1": 0.8145843509163413,
-        "roc_auc": 0.82555115995116
+      "BalancedLightGBM": {
+        "accuracy": 0.7890710382513662,
+        "precision": 0.7669376693766937,
+        "recall": 0.921111111111111,
+        "f1": 0.8367771280051983,
+        "roc_auc": 0.8235330891330891,
+        "calibrated_threshold": 0.3
       },
-      "RandomForest": {
-        "accuracy": 0.7890163934426229,
-        "precision": 0.7766420421828115,
-        "recall": 0.9046031746031746,
-        "f1": 0.8338751564036265,
-        "roc_auc": 0.8528346764346765
+      "HistGradientBoosting": {
+        "accuracy": 0.7626229508196721,
+        "precision": 0.7588017917133258,
+        "recall": 0.8760317460317459,
+        "f1": 0.8123069575599695,
+        "roc_auc": 0.824483028083028,
+        "calibrated_threshold": 0.26
       },
       "GradientBoosting": {
-        "accuracy": 0.7526775956284154,
-        "precision": 0.7799843849843849,
-        "recall": 0.8084126984126984,
-        "f1": 0.7929231335726779,
-        "roc_auc": 0.8361948717948717
+        "accuracy": 0.7493442622950821,
+        "precision": 0.721074879227053,
+        "recall": 0.9328571428571429,
+        "f1": 0.8132201253070095,
+        "roc_auc": 0.8375037851037852,
+        "calibrated_threshold": 0.26
       }
     },
     "LCX": {
-      "XGBoost": {
-        "accuracy": 0.6633333333333333,
-        "precision": 0.6059764796606901,
-        "recall": 0.4539855072463769,
-        "f1": 0.5150848522941546,
-        "roc_auc": 0.7048809679244461
+      "BalancedRandomForest": {
+        "accuracy": 0.5444262295081967,
+        "precision": 0.46566124034154727,
+        "recall": 0.9829710144927535,
+        "f1": 0.6308571428571429,
+        "roc_auc": 0.7133402424163293,
+        "calibrated_threshold": 0.32
       },
-      "LightGBM": {
-        "accuracy": 0.663551912568306,
-        "precision": 0.5848149786230282,
-        "recall": 0.48695652173913045,
-        "f1": 0.530576848625629,
-        "roc_auc": 0.7075831266048657
+      "BalancedLightGBM": {
+        "accuracy": 0.6402732240437159,
+        "precision": 0.5282783882783882,
+        "recall": 0.8485507246376811,
+        "f1": 0.6506701248942629,
+        "roc_auc": 0.7211869478173826,
+        "calibrated_threshold": 0.27
       },
-      "RandomForest": {
-        "accuracy": 0.6567759562841531,
-        "precision": 0.6455710955710956,
-        "recall": 0.29384057971014493,
-        "f1": 0.4015813712872537,
-        "roc_auc": 0.7102477477477477
+      "HistGradientBoosting": {
+        "accuracy": 0.6765573770491803,
+        "precision": 0.5715678194354665,
+        "recall": 0.7474637681159421,
+        "f1": 0.6464776845214351,
+        "roc_auc": 0.7125190407799104,
+        "calibrated_threshold": 0.3
       },
       "GradientBoosting": {
-        "accuracy": 0.6568852459016393,
-        "precision": 0.579595238095238,
-        "recall": 0.49637681159420294,
-        "f1": 0.5314646464646464,
-        "roc_auc": 0.703792107324716
+        "accuracy": 0.6107103825136612,
+        "precision": 0.5064034005210475,
+        "recall": 0.8235507246376812,
+        "f1": 0.6261641475277541,
+        "roc_auc": 0.696908321364843,
+        "calibrated_threshold": 0.27
       }
     },
     "RCA": {
-      "XGBoost": {
-        "accuracy": 0.6598907103825137,
-        "precision": 0.5798229548229548,
-        "recall": 0.4205533596837944,
-        "f1": 0.4816887591355676,
-        "roc_auc": 0.6812871431864567
+      "BalancedRandomForest": {
+        "accuracy": 0.5675409836065575,
+        "precision": 0.4688596037898363,
+        "recall": 0.9648221343873518,
+        "f1": 0.6291298503627271,
+        "roc_auc": 0.7181115377911717,
+        "calibrated_threshold": 0.34
       },
-      "LightGBM": {
-        "accuracy": 0.6897267759562842,
-        "precision": 0.6389416636219705,
-        "recall": 0.4553359683794467,
-        "f1": 0.5252483406460077,
-        "roc_auc": 0.7261833812177061
+      "BalancedLightGBM": {
+        "accuracy": 0.6239344262295081,
+        "precision": 0.5043693693693694,
+        "recall": 0.8237154150197629,
+        "f1": 0.6236551882813098,
+        "roc_auc": 0.7127050078995159,
+        "calibrated_threshold": 0.29
       },
-      "RandomForest": {
-        "accuracy": 0.6797267759562841,
-        "precision": 0.6816239316239316,
-        "recall": 0.30632411067193677,
-        "f1": 0.40882039966117123,
-        "roc_auc": 0.7130864898599452
+      "HistGradientBoosting": {
+        "accuracy": 0.6404371584699453,
+        "precision": 0.5203902771960849,
+        "recall": 0.7181818181818181,
+        "f1": 0.5996102320031457,
+        "roc_auc": 0.6948793707374944,
+        "calibrated_threshold": 0.28
       },
       "GradientBoosting": {
-        "accuracy": 0.699672131147541,
-        "precision": 0.6650226244343892,
-        "recall": 0.4470355731225297,
-        "f1": 0.529043329043329,
-        "roc_auc": 0.7012507098319455
+        "accuracy": 0.6073224043715848,
+        "precision": 0.48724244340942635,
+        "recall": 0.7802371541501977,
+        "f1": 0.5980217683551527,
+        "roc_auc": 0.6996868305792792,
+        "calibrated_threshold": 0.26
       }
     }
   },
   "best_models": {
     "CAD": {
-      "algorithm": "RandomForest",
+      "algorithm": "BalancedRandomForest",
+      "calibrated_threshold": 0.36,
       "metrics": {
-        "accuracy": 0.8316393442622951,
-        "precision": 0.8345572712825258,
-        "recall": 0.9534883720930232,
-        "f1": 0.8895820873404325,
-        "roc_auc": 0.9256912490154624
+        "accuracy": 0.8579234972677596,
+        "precision": 0.8490992616899098,
+        "recall": 0.9767441860465116,
+        "f1": 0.9079873348088396,
+        "roc_auc": 0.9266122234658486,
+        "calibrated_threshold": 0.36
       }
     },
     "LAD": {
-      "algorithm": "RandomForest",
+      "algorithm": "BalancedRandomForest",
+      "calibrated_threshold": 0.35,
       "metrics": {
-        "accuracy": 0.7890163934426229,
-        "precision": 0.7766420421828115,
-        "recall": 0.9046031746031746,
-        "f1": 0.8338751564036265,
-        "roc_auc": 0.8528346764346765
+        "accuracy": 0.7727868852459017,
+        "precision": 0.7416515783957645,
+        "recall": 0.9661904761904762,
+        "f1": 0.8365343665343665,
+        "roc_auc": 0.8584336996336998,
+        "calibrated_threshold": 0.35
       }
     },
     "LCX": {
-      "algorithm": "LightGBM",
+      "algorithm": "BalancedRandomForest",
+      "calibrated_threshold": 0.32,
       "metrics": {
-        "accuracy": 0.663551912568306,
-        "precision": 0.5848149786230282,
-        "recall": 0.48695652173913045,
-        "f1": 0.530576848625629,
-        "roc_auc": 0.7075831266048657
+        "accuracy": 0.5444262295081967,
+        "precision": 0.46566124034154727,
+        "recall": 0.9829710144927535,
+        "f1": 0.6308571428571429,
+        "roc_auc": 0.7133402424163293,
+        "calibrated_threshold": 0.32
       }
     },
     "RCA": {
-      "algorithm": "LightGBM",
+      "algorithm": "BalancedRandomForest",
+      "calibrated_threshold": 0.34,
       "metrics": {
-        "accuracy": 0.6897267759562842,
-        "precision": 0.6389416636219705,
-        "recall": 0.4553359683794467,
-        "f1": 0.5252483406460077,
-        "roc_auc": 0.7261833812177061
+        "accuracy": 0.5675409836065575,
+        "precision": 0.4688596037898363,
+        "recall": 0.9648221343873518,
+        "f1": 0.6291298503627271,
+        "roc_auc": 0.7181115377911717,
+        "calibrated_threshold": 0.34
       }
     }
   }
