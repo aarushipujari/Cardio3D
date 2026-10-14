@@ -26,13 +26,62 @@
   background: #94a3b8;
 }
 
-/* Print optimizations */
+/* Print optimizations: Exact 1-page clinical consultation sheet */
 @media print {
+  @page {
+    size: portrait;
+    margin: 8mm 10mm;
+  }
+
   body {
     background: #ffffff !important;
-    color: #000000 !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  header, button, nav {
+
+  /* Hide entire background app, navigation, buttons, error banners, and overlays */
+  body > div > header,
+  body > div > main,
+  header,
+  nav,
+  button,
+  .no-print {
     display: none !important;
+  }
+
+  /* Force report modal to render cleanly as a single page */
+  .clinical-report-modal-backdrop {
+    position: static !important;
+    inset: auto !important;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  .clinical-report-modal-content {
+    position: static !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 8px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Compact sizing for crisp 1-page fit */
+  .clinical-report-modal-content * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }

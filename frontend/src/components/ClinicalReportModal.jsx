@@ -20,24 +20,24 @@ export default function ClinicalReportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white border border-slate-200 rounded-2xl max-w-4xl w-full p-6 shadow-2xl flex flex-col gap-5 max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fadeIn clinical-report-modal-backdrop">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-4xl w-full p-6 shadow-2xl flex flex-col gap-4 max-h-[92vh] overflow-y-auto clinical-report-modal-content print:p-4 print:gap-2.5 print:shadow-none print:border-slate-300">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3 print:pb-2">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 border border-blue-100">
-              <FileText className="w-5 h-5" />
+            <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 border border-blue-100 print:w-7 print:h-7">
+              <FileText className="w-5 h-5 print:w-4 print:h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-slate-900 print:text-sm">
                 Cardiology Consultation & Decision Support Summary
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 print:text-[10px]">
                 Cardio3D Multimodal Risk Estimation, 1D Hemodynamics & Coronary Vasculature Breakdown
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 no-print">
             <button
               onClick={handlePrint}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors"
@@ -52,59 +52,63 @@ export default function ClinicalReportModal({
               <X className="w-5 h-5" />
             </button>
           </div>
+          <div className="hidden print:block text-right text-[10px] text-slate-500">
+            <div>Date: {new Date().toLocaleDateString()}</div>
+            <div>Status: Machine Evaluation</div>
+          </div>
         </div>
 
         {/* Patient Vitals Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 print:gap-2 text-xs bg-slate-50 p-3.5 print:p-2.5 rounded-xl border border-slate-200/80">
           <div>
-            <span className="text-slate-500">Age:</span>
-            <div className="font-bold text-slate-900 text-sm">{Math.round(patientFeatures.Age || 55)} years</div>
+            <span className="text-slate-500 print:text-[10px]">Age:</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">{Math.round(patientFeatures.Age || 55)} years</div>
           </div>
           <div>
-            <span className="text-slate-500">Sex:</span>
-            <div className="font-bold text-slate-900 text-sm">{patientFeatures.Sex === 1 ? 'Male' : 'Female'}</div>
+            <span className="text-slate-500 print:text-[10px]">Sex:</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">{patientFeatures.Sex === 1 ? 'Male' : 'Female'}</div>
           </div>
           <div>
-            <span className="text-slate-500">Blood Pressure:</span>
-            <div className="font-bold text-slate-900 text-sm">{Math.round(patientFeatures.BP || 120)} mmHg</div>
+            <span className="text-slate-500 print:text-[10px]">Blood Pressure:</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">{Math.round(patientFeatures.BP || 120)} mmHg</div>
           </div>
           <div>
-            <span className="text-slate-500">Pulse Rate:</span>
-            <div className="font-bold text-slate-900 text-sm">{Math.round(patientFeatures.PR || 72)} bpm</div>
+            <span className="text-slate-500 print:text-[10px]">Pulse Rate:</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">{Math.round(patientFeatures.PR || 72)} bpm</div>
           </div>
           <div>
-            <span className="text-slate-500">Ejection Fraction (EF):</span>
-            <div className="font-bold text-slate-900 text-sm">{Math.round(patientFeatures['EF-TTE'] || 50)}%</div>
+            <span className="text-slate-500 print:text-[10px]">Ejection Fraction (EF):</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">{Math.round(patientFeatures['EF-TTE'] || 50)}%</div>
           </div>
           <div>
-            <span className="text-slate-500">LDL Cholesterol:</span>
-            <div className="font-bold text-slate-900 text-sm">{Math.round(patientFeatures.LDL || 115)} mg/dL</div>
+            <span className="text-slate-500 print:text-[10px]">LDL Cholesterol:</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">{Math.round(patientFeatures.LDL || 115)} mg/dL</div>
           </div>
           <div>
-            <span className="text-slate-500">Fasting Blood Sugar:</span>
-            <div className="font-bold text-slate-900 text-sm">{Math.round(patientFeatures.FBS || 100)} mg/dL</div>
+            <span className="text-slate-500 print:text-[10px]">Fasting Blood Sugar:</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">{Math.round(patientFeatures.FBS || 100)} mg/dL</div>
           </div>
           <div>
-            <span className="text-slate-500">Anginal Pain:</span>
-            <div className="font-bold text-slate-900 text-sm">
+            <span className="text-slate-500 print:text-[10px]">Anginal Pain:</span>
+            <div className="font-bold text-slate-900 text-sm print:text-xs">
               {patientFeatures['Typical Chest Pain'] === 1 ? 'Present (Anginal)' : 'Absent'}
             </div>
           </div>
         </div>
 
         {/* Inferences Summary */}
-        <div className="flex flex-col gap-2">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+        <div className="flex flex-col gap-1.5 print:gap-1">
+          <h3 className="text-xs print:text-[10px] font-bold uppercase tracking-wider text-slate-700">
             Cardiovascular Inferences & 1D Hemodynamics
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 print:gap-2 text-xs">
             {/* CAD */}
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-              <span className="text-slate-500 font-semibold">Overall CAD</span>
-              <div className="text-2xl font-bold text-slate-900 my-1">
+            <div className="p-3 print:p-2 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <span className="text-slate-500 font-semibold print:text-[10px]">Overall CAD</span>
+              <div className="text-2xl print:text-lg font-bold text-slate-900 my-0.5">
                 {cad.percentage || 0}%
               </div>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full w-max border ${
+              <span className={`text-[10px] print:text-[9px] font-bold px-2 py-0.5 rounded-full w-max border ${
                 (cad.probability || 0) >= 0.5 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
               }`}>
                 {cad.risk_tier || 'Low'} Risk
@@ -120,18 +124,18 @@ export default function ClinicalReportModal({
               const isIschemic = !isStented && (ffr <= 0.80);
 
               return (
-                <div key={key} className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                <div key={key} className="p-3 print:p-2 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-500 font-semibold uppercase">{key}</span>
+                    <span className="text-slate-500 font-semibold uppercase print:text-[10px]">{key}</span>
                     {isStented && <span className="text-[9px] bg-blue-50 text-blue-700 px-1.5 py-0.2 rounded border border-blue-200">Stented</span>}
                   </div>
-                  <div className="text-xl font-bold text-slate-900 my-1">
+                  <div className="text-xl print:text-lg font-bold text-slate-900 my-0.5">
                     {isStented ? '0% Narrow' : `${v.percentage || 0}%`}
                   </div>
-                  <div className="text-[10px] text-slate-500 mb-1 font-mono">
+                  <div className="text-[10px] print:text-[9px] text-slate-500 mb-0.5 font-mono">
                     FFR: <strong className={isIschemic ? 'text-rose-600' : 'text-emerald-600'}>{ffr}</strong> · ΔP: {isStented ? '1.5' : (h.pressure_drop_mmhg ?? '4.2')} mmHg
                   </div>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full w-max border ${
+                  <span className={`text-[10px] print:text-[9px] font-bold px-2 py-0.5 rounded-full w-max border ${
                     isStented ? 'bg-blue-50 text-blue-700 border-blue-200' : (v.probability || 0) >= 0.4 ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                   }`}>
                     {isStented ? 'Patent (Stented)' : `${v.risk_tier || 'Low'} Risk`}
@@ -143,13 +147,13 @@ export default function ClinicalReportModal({
         </div>
 
         {/* Top SHAP Attributions */}
-        <div className="flex flex-col gap-2">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+        <div className="flex flex-col gap-1.5 print:gap-1">
+          <h3 className="text-xs print:text-[10px] font-bold uppercase tracking-wider text-slate-700">
             Top Attributed Clinical Markers (SHAP Factor Analysis)
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 print:gap-1.5 text-xs">
             {(shap.cad || []).slice(0, 6).map((f, i) => (
-              <div key={i} className="p-2 rounded-lg bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+              <div key={i} className="p-2 print:p-1.5 rounded-lg bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs print:text-[10px]">
                 <span className="text-slate-700">{f.feature} (val: {typeof f.value === 'number' ? f.value.toFixed(1) : f.value})</span>
                 <span className={`font-mono font-bold ${f.shap_value > 0 ? 'text-rose-700' : 'text-emerald-700'}`}>
                   {f.shap_value > 0 ? `+${f.shap_value.toFixed(4)}` : f.shap_value.toFixed(4)}
@@ -160,12 +164,24 @@ export default function ClinicalReportModal({
         </div>
 
         {/* Safety Disclaimer */}
-        <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
-          <strong>CLINICAL & REGULATORY NOTICE:</strong> This report is machine-generated for clinical decision support and educational demonstration under Track A of the Multimodal AI Hackathon 2026. These predictive inferences cannot replace formal invasive coronary angiography or direct clinical judgment.
+        <div className="p-2.5 print:p-2 rounded-xl bg-amber-50 border border-amber-200 text-[11px] print:text-[9px] text-amber-900 leading-relaxed">
+          <strong>CLINICAL & REGULATORY NOTICE:</strong> This report is machine-generated for clinical decision support and educational demonstration under Track A of the Multimodal AI Hackathon 2026. Predictive inferences cannot replace formal invasive coronary angiography or direct clinical judgment.
+        </div>
+
+        {/* Physician Sign-off (Visible on Print) */}
+        <div className="hidden print:flex justify-between items-end pt-3 mt-1 border-t border-slate-300 text-xs text-slate-700">
+          <div>
+            <p className="font-semibold text-slate-900 text-[11px]">Attending Physician Consultation Review:</p>
+            <p className="text-[9px] text-slate-500">Multimodal CAD Inferences, 1D FFR Hemodynamics, & Intervention Verification</p>
+          </div>
+          <div className="text-right">
+            <div className="w-52 border-b border-slate-400 mb-1"></div>
+            <p className="text-[9px] text-slate-500">Cardiologist Signature & Date</p>
+          </div>
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end pt-2 border-t border-slate-100">
+        <div className="flex justify-end pt-2 border-t border-slate-100 no-print">
           <button
             onClick={onClose}
             className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs transition-colors"
